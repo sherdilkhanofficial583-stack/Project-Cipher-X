@@ -1,76 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Cipher-X | Final</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.css"/>
-<script src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Cipher-X - Original Fixed</title>
+<link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-:root{--bg:#05070e;--panel:#0e1322;--panel2:#131a2e;--border:#1e2a4a;--accent:#6ea8ff;--accent2:#8b5cf6;--cyan:#22d3ee;--text:#e6eaf5;--muted:#8a90a8;--success:#34d399}
-*{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif}
-header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid var(--border);background:rgba(5,7,14,0.95);position:sticky;top:0;z-index:100}
-.logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:700}
-.tagline{font-size:11px;color:var(--muted);text-align:right;max-width:500px}.tagline em{color:var(--cyan);font-style:normal}
-.main{display:grid;grid-template-columns:280px 1fr 320px;min-height:calc(100vh - 72px)}@media(max-width:1100px){.main{grid-template-columns:1fr}}
-.controls{background:var(--panel);border-right:1px solid var(--border);padding:18px;display:flex;flex-direction:column;gap:18px}
-.label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
-.mode-btn{width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--panel2);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;text-align:left}
-.mode-btn.active{border-color:var(--accent);color:var(--text);background:rgba(110,168,255,0.15)}
-.band-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.band{padding:8px;border-radius:8px;border:1px solid var(--border);background:#0a0f1e;font-size:10px;color:var(--muted);cursor:pointer}.band.active{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,0.1)}
-.viewer{background:#02040a;display:flex;flex-direction:column}.viewer-top{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:10px}
-#skyStage{position:relative;flex:1;min-height:560px;border:1px solid var(--border)}#aladin-lite-div{width:100%;height:100%;min-height:560px}canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}#canvasB{opacity:0}
-.viewer-actions{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:20}
-.btn{padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:rgba(14,19,34,0.9);color:var(--text);font-size:11px;font-weight:700;cursor:pointer}.btn.primary{background:var(--text);color:#000}
-.sidebar{background:var(--panel);border-left:1px solid var(--border);padding:18px;display:flex;flex-direction:column;gap:18px}
-.meta-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px}.meta-card h4{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-bottom:10px;text-transform:uppercase}
-.kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(30,42,74,0.4);font-size:11px}.kv span{color:var(--muted)}.kv b{font-family:'JetBrains Mono',monospace}
-.badge{padding:3px 8px;border-radius:999px;font-size:9px;font-weight:700}.badge.live{background:rgba(52,211,153,0.15);color:var(--success)}.badge.shift{background:rgba(110,168,255,0.15);color:var(--accent)}
-.quote{border-left:3px solid var(--accent2);padding:10px;background:rgba(139,92,246,0.08);font-size:11px;line-height:1.6}
+body{margin:0;background:#000;color:#fff;font-family:monospace;overflow:hidden}
+#aladin-lite-div{width:100vw;height:85vh}
+#controls{padding:10px;background:#111;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button,select{background:#222;color:#0f0;border:1px solid #0f0;padding:8px 12px;cursor:pointer}
+#status{color:#0f0;font-size:12px}
 </style>
 </head>
 <body>
-<header>
-<div style="display:flex;gap:12px;align-items:center"><div class="logo">CX</div><div><h1 style="font-size:15px;letter-spacing:2px">PROJECT <span style="color:var(--accent)">CIPHER-X</span></h1><div style="font-size:8px;letter-spacing:3px;color:var(--muted)">FINAL • NASA SPACE APPS 2026</div></div></div>
-<div class="tagline">102 infrared bands — "We adorned the lowest heaven with lamps" <em>Quran 67:5</em> — Real sky + Blink Mirror for Planet X</div>
-</header>
-<div class="main">
-<div class="controls">
-<div><div class="label">Mode</div><button class="mode-btn active" id="mBlink">Blink Mirror</button><button class="mode-btn" id="mReal">Real Sky Only</button><button class="mode-btn" id="mSpec">2MASS IR</button></div>
-<div><div class="label">Survey</div><div class="band-grid"><div class="band active" data-survey="P/DSS2/color">DSS2 Color</div><div class="band" data-survey="P/2MASS/color">2MASS IR</div><div class="band" data-survey="P/allWISE/color">WISE IR</div><div class="band" data-survey="P/DSS2/blue">DSS Blue</div></div></div>
-<div><div class="label">Band</div><div class="band-grid" id="bandGrid"><div class="band active" data-band="water">H2O 3.0um</div><div class="band" data-band="co2">CO2 4.2um</div><div class="band" data-band="methanol">CH3OH 3.5um</div><div class="band" data-band="all">All 102</div></div></div>
-<div><div class="label">Blink</div><input id="blinkSlider" type="range" min="0" max="100" value="0" style="width:100%"></div>
+<div id="controls">
+  <button id="toggleAB">Toggle A/B</button>
+  <select id="surveySelect">
+    <option value="P/DSS2/color">DSS2 Color</option>
+    <option value="P/allWISE/color">WISE IR</option>
+    <option value="P/DSS2/red">DSS2 Red</option>
+  </select>
+  <span id="status">LOADING ORIGINAL SKY...</span>
+  <span style="margin-left:auto">FIELD: Orion | 05:35:17 / -05:23 | H2O 3.05um</span>
 </div>
-<div class="viewer">
-<div class="viewer-top"><div>FIELD: <b>Orion</b> | <b class="badge live">LIVE</b></div><div>BAND: <b id="bandVal" style="color:var(--cyan)">H2O 3.0um</b></div></div>
-<div style="position:relative;flex:1"><div id="skyStage"><div id="aladin-lite-div"></div><canvas id="canvasA"></canvas><canvas id="canvasB"></canvas></div>
-<div class="viewer-actions"><button class="btn" id="toggleBlink">Toggle A/B</button><button class="btn primary" id="finderBtn">Finder</button></div></div>
-</div>
-<div class="sidebar">
-<div class="meta-card"><h4>Telemetry</h4><div class="kv"><span>Survey</span><b id="mSurvey">DSS2 color</b></div><div class="kv"><span>Coords</span><b id="mCoord">05:35:17 / -05:23</b></div><div class="kv"><span>Band</span><b id="mBand">H2O 3.05um</b></div><div class="kv"><span>Shift</span><b><span class="badge shift">+0.84"</span></b></div></div>
-<div class="meta-card"><h4>Reflection</h4><div class="quote">"We will show them Our signs in the horizons."<br><small>QURAN 41:53</small></div></div>
-</div>
-</div>
+<div id="aladin-lite-div"></div>
+
+<script src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.js"></script>
 <script>
-let aladin,W,H,blinkState=0,currentBand='water',highlight=false;
-const canvasA=document.getElementById('canvasA'),canvasB=document.getElementById('canvasB'),ctxA=canvasA.getContext('2d'),ctxB=canvasB.getContext('2d'),skyStage=document.getElementById('skyStage'),slider=document.getElementById('blinkSlider');
-function resize(){const r=skyStage.getBoundingClientRect();W=r.width;H=r.height;[canvasA,canvasB].forEach(c=>{c.width=W*devicePixelRatio;c.height=H*devicePixelRatio;c.style.width=W+'px';c.style.height=H+'px';c.getContext('2d').setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)});draw();}
-const pos={A:{x:0.44,y:0.58},B:{x:0.49,y:0.565}};
-function col(b){if(b==='water')return'#22d3ee';if(b==='co2')return'#f472b6';if(b==='methanol')return'#facc15';return'#fff';}
-function drawField(ctx,key){ctx.clearRect(0,0,W,H);const p=pos[key];const c=col(currentBand);ctx.shadowBlur=highlight?20:10;ctx.shadowColor=c;ctx.fillStyle=c;ctx.beginPath();ctx.arc(p.x*W,p.y*H,highlight?5:3.5,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;if(highlight){ctx.strokeStyle=c;ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(p.x*W,p.y*H,20,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);}}
-function draw(){drawField(ctxA,'A');drawField(ctxB,'B');canvasB.style.opacity=blinkState?1:0;canvasA.style.opacity=blinkState?0:1;}
-A.init.then(()=>{aladin=A.aladin('#aladin-lite-div',{survey:"P/DSS2/color",fov:1.2,target:"05 35 17.3 -05 23 28",reticleColor:'#6ea8ff',reticleSize:30});});
-document.querySelectorAll('[data-survey]').forEach(el=>{el.addEventListener('click',()=>{document.querySelectorAll('[data-survey]').forEach(x=>x.classList.remove('active'));el.classList.add('active');if(aladin)aladin.setImageSurvey(el.dataset.survey);});});
-document.getElementById('bandGrid').addEventListener('click',e=>{const b=e.target.closest('.band');if(!b)return;document.querySelectorAll('#bandGrid .band').forEach(x=>x.classList.remove('active'));b.classList.add('active');currentBand=b.dataset.band;draw();});
-slider.addEventListener('input',()=>{blinkState=slider.value>50?1:0;draw();});
-document.getElementById('toggleBlink').addEventListener('click',()=>{blinkState=blinkState?0:1;slider.value=blinkState?100:0;draw();});
-document.getElementById('finderBtn').addEventListener('click',()=>{highlight=!highlight;draw();});
-document.getElementById('mBlink').addEventListener('click',()=>{document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));document.getElementById('mBlink').classList.add('active');document.getElementById('aladin-lite-div').style.display='block';canvasA.style.display='block';canvasB.style.display='block';});
-document.getElementById('mReal').addEventListener('click',()=>{document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));document.getElementById('mReal').classList.add('active');canvasA.style.display='none';canvasB.style.display='none';});
-document.getElementById('mSpec').addEventListener('click',()=>{document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));document.getElementById('mSpec').classList.add('active');if(aladin)aladin.setImageSurvey('P/2MASS/color');});
-setInterval(()=>{if(!document.getElementById('mBlink').classList.contains('active'))return;blinkState=blinkState?0:1;slider.value=blinkState?100:0;draw();},700);
-window.addEventListener('resize',resize);resize();
+let aladin;
+let surveyA = "P/DSS2/color";
+let surveyB = "P/allWISE/color";
+let isA = true;
+
+A.init.then(() => {
+    aladin = A.aladin('#aladin-lite-div', {
+        survey: surveyA,
+        fov: 0.5,
+        target: '05 35 17.3 -05 23 28',
+        cooFrame: 'J2000',
+        showReticle: true,
+        showCooGrid: true
+    });
+    document.getElementById('status').innerText = "ORIGINAL LIVE: DSS2";
+});
+
+document.getElementById('toggleAB').addEventListener('click', () => {
+    if(!aladin) return;
+    aladin.setImageSurvey(isA ? surveyB : surveyA);
+    isA = !isA;
+    document.getElementById('status').innerText = isA ? "ORIGINAL LIVE: DSS2" : "ORIGINAL LIVE: WISE IR";
+});
+
+document.getElementById('surveySelect').addEventListener('change', (e) => {
+    if(!aladin) return;
+    aladin.setImageSurvey(e.target.value);
+});
 </script>
 </body>
 </html>
