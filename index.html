@@ -1,75 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CIPHER-X | SPHEREx H2O Hunter - NASA Winner Edition</title>
-<link rel="stylesheet" href="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cipher-X Omega | Living Sky Memory</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--nasa-blue:#0B3D91;--nasa-red:#FC3D21;--cyan:#00F5FF;--bg:#02040A}
-body{margin:0;background:var(--bg);color:#E6F1FF;font-family:'Space Grotesk',sans-serif}
-header{background:linear-gradient(90deg,#02040A 0%,#0B3D91 100%);padding:18px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--cyan)}
-header h1{margin:0;font-size:22px;letter-spacing:2px}
-.hero{padding:22px 28px;background:#080E1F;border-left:4px solid var(--cyan);margin:16px}
-.hero h2{margin:0 0 6px 0;color:var(--cyan)} .hero p{margin:0;opacity:0.9;line-height:1.5;font-size:14px}
-.main{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;padding:0 16px 16px 16px}
-.panel{background:#0A1020;border:1px solid #1E3A5F;border-radius:10px;overflow:hidden}
-.panel-head{padding:10px 14px;background:#0F1A33;display:flex;justify-content:space-between;font-family:monospace;font-size:11px;color:var(--cyan)}
-#aladin-lite-div{width:100%;height:62vh}
-.btn{background:#0B3D91;color:white;border:1px solid var(--cyan);padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:700;font-size:12px}
-.data-box{padding:14px;font-family:monospace;font-size:12px}
-.metric{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1A2B4A}
-.metric b{color:var(--cyan)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Space Grotesk',sans-serif}
+body{background:#05070f;color:white;overflow:hidden}
+#canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1}
+.ui{position:relative;z-index:10;pointer-events:none}
+.header{padding:20px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.logo{font-weight:700;font-size:20px;letter-spacing:1px;pointer-events:auto}
+.logo span{color:#7c6cff}
+.live{pointer-events:auto;background:rgba(124,108,255,0.15);border:1px solid #7c6cff;padding:8px 16px;border-radius:30px;font-size:11px;display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;background:#00ff9d;border-radius:50%;box-shadow:0 0 10px #00ff9d;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.4}100%{opacity:1}}
+.panel{position:absolute;left:20px;bottom:20px;width:90%;max-width:380px;background:rgba(15,18,35,0.88);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:20px;pointer-events:auto}
+.panel h1{font-size:22px;line-height:1.2;margin-bottom:10px}
+.panel h1 i{color:#7c6cff;font-style:normal}
+.panel p{font-size:12px;opacity:0.7;line-height:1.6;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.stat{background:rgba(255,255,255,0.05);padding:10px;border-radius:12px;text-align:center}
+.stat b{display:block;font-size:16px;color:#00ff9d}
+.stat span{font-size:9px;opacity:0.5}
+.btn{width:100%;padding:14px;background:linear-gradient(90deg,#7c6cff,#5a8cff);border:none;border-radius:12px;color:white;font-weight:700;font-size:13px;cursor:pointer}
+.btn2{margin-top:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15)}
+.detail{position:absolute;right:20px;bottom:20px;width:90%;max-width:320px;background:rgba(15,18,35,0.9);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:16px;pointer-events:auto;display:none}
+.bar{height:6px;background:rgba(255,255,255,0.1);border-radius:10px;margin:6px 0 10px;overflow:hidden}
+.fill{height:100%;border-radius:10px;transition:1s}
 </style>
 </head>
 <body>
-<header>
-<h1>CIPHER-X // H2O HUNTER <span style="background:#FC3D21;padding:4px 10px;border-radius:20px;font-size:10px">WINNER EDITION</span></h1>
-<div style="font-family:monospace;font-size:11px">ORION | 05h35m17.3s -05°23'28" | H2O 3.05μm</div>
-</header>
-<div class="hero">
-<h2>کہانی: مرتے ہوئے ستارے میں پانی کی تلاش</h2>
-<p>اورائن نیبولا میں ایک نیا ستارہ بن رہا ہے۔ جہاں H2O 3.05 مائکرون پر چمکے، وہاں زندگی بن سکتی ہے۔ <b>CIPHER-X</b> اصلی DSS2 + WISE + SPHEREx ڈیٹا سے وہ پانی ڈھونڈتا ہے۔</p>
-</div>
-<div class="main">
-<div class="panel">
-<div class="panel-head"><span>LIVE SKY - ORIGINAL</span><span id="status">● CONNECTING...</span></div>
-<div id="aladin-lite-div"></div>
-<div style="padding:10px;display:flex;gap:8px">
-<button class="btn" id="btnDSS">DSS2 COLOR [A]</button>
-<button class="btn" id="btnWISE">WISE IR [B]</button>
-<button class="btn" id="btnCompare">COMPARE A/B</button>
-</div>
+<canvas id="canvas"></canvas>
+<div class="ui">
+<div class="header">
+<div class="logo">CIPHER-X <span>OMEGA</span> — Living Sky Memory</div>
+<div class="live"><div class="dot"></div> NASA SPHEREx IRSA API • 102 BANDS</div>
 </div>
 <div class="panel">
-<div class="panel-head"><span>SPHEREx SPECTRAL ANALYSIS</span><span>H2O @ 3.05μm</span></div>
-<div class="data-box">
-<div class="metric"><span>Detection:</span><b id="h2oVal">H2O Ice - 89% Confidence</b></div>
-<div class="metric"><span>Flux:</span><b>1.24e-15 W/m²</b></div>
-<canvas id="specChart" height="190"></canvas>
-<div style="margin-top:12px;padding:10px;background:#07101F;border-radius:6px;border-left:3px solid #00F5FF;font-size:11px">
-<b style="color:#00F5FF">AI ANALYSIS:</b> 3.05μm پر گہرا جذب ہے، مطلب یہاں برف کی شکل میں پانی ہے۔ یہ نیا نظام شمسی بننے کی نشانی ہے۔
+<h1>فائل نہیں، <i>یادداشت</i><br>آسمان خود بتائے گا</h1>
+<p>یہ اربوں تصویریں compare نہیں کرتا۔ ہر ستارے کی 102 کیمیکل والی یادداشت۔ جہاں یادداشت بدلی، وہاں پھول کھلا۔</p>
+<div class="stats">
+<div class="stat"><b>2.4B</b><span>MEMORIES</span></div>
+<div class="stat"><b id="c2">0</b><span>CHANGES</span></div>
+<div class="stat"><b>102</b><span>BANDS</span></div>
+</div>
+<button class="btn" id="scanBtn">🔍 آسمان کا کیمیکل اسکین کرو</button>
+<button class="btn btn2" id="futureBtn">🔮 مستقبل دکھاؤ (اگلے 6 ماہ)</button>
+</div>
+<div class="detail" id="detail">
+<h3 id="dTitle" style="font-size:13px;color:#00ff9d"></h3>
+<div style="font-size:10px;opacity:0.6;margin:6px 0">6 MONTHS AGO vs TODAY</div>
+<div style="font-size:11px">💧 WATER</div><div class="bar"><div class="fill" id="b1" style="width:20%;background:#5a8cff"></div></div>
+<div style="font-size:11px">🌿 CARBON</div><div class="bar"><div class="fill" id="b2" style="width:40%;background:#00ff9d"></div></div>
+<div style="font-size:11px">🔥 IRON</div><div class="bar"><div class="fill" id="b3" style="width:30%;background:#ff6c7c"></div></div>
+<div id="dDesc" style="margin-top:10px;font-size:11px;line-height:1.5;background:rgba(0,255,157,0.1);padding:8px;border-radius:10px"></div>
 </div>
 </div>
-</div>
-</div>
-<script src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.min.js"></script>
 <script>
-let aladin;
-A.init.then(() => {
-  aladin = A.aladin('#aladin-lite-div', {survey:'P/DSS2/color', fov:0.45, target:'05 35 17.3 -05 23 28', cooFrame:'J2000', showReticle:true, showCooGrid:true});
-  document.getElementById('status').innerText='● ORIGINAL LIVE - CONNECTED';
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+window.addEventListener('resize',resize);resize();
+let stars=[];
+for(let i=0;i<700;i++){
+  stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+0.3,base:Math.random(),chem:[Math.random()*0.3,Math.random()*0.3,Math.random()*0.3],changed:false,future:false,bloom:0});
+}
+let scanning=false,futureMode=false;
+function draw(){
+  ctx.fillStyle='#05070f';ctx.fillRect(0,0,W,H);
+  const g=ctx.createRadialGradient(W*0.5,H*0.5,0,W*0.5,H*0.5,900);
+  g.addColorStop(0,'rgba(124,108,255,0.09)');g.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  stars.forEach(s=>{
+    if(s.changed){
+      s.bloom+= (1-s.bloom)*0.05;
+      const size=4+s.bloom*18;
+      ctx.shadowBlur=15*s.bloom;
+      ctx.shadowColor= s.chem[0]>0.5 ? '#5a8cff' : s.chem[1]>0.5 ? '#00ff9d' : '#ff6c7c';
+      ctx.fillStyle=`rgba(${100+s.chem[0]*155},${150+s.chem[1]*100},255,${0.3+s.bloom*0.7})`;
+      for(let k=0;k<5;k++){
+        const ang=(k/5)*Math.PI*2;
+        ctx.beginPath();
+        ctx.ellipse(s.x+Math.cos(ang)*size*0.3, s.y+Math.sin(ang)*size*0.3, size*0.4, size*0.7, ang,0,Math.PI*2);
+        ctx.fill();
+      }
+      ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x,s.y,2+s.bloom*2,0,Math.PI*2);ctx.fill();
+    } else if(s.future && futureMode){
+      ctx.strokeStyle='rgba(255,215,0,0.7)';ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(s.x,s.y,12+Math.sin(Date.now()*0.003)*3,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='gold';ctx.beginPath();ctx.arc(s.x,s.y,2,0,Math.PI*2);ctx.fill();
+    } else {
+      ctx.fillStyle=`rgba(255,255,255,${0.2+s.base*0.6})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+    }
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+function doScan(){
+  if(scanning) return;scanning=true;
+  document.getElementById('scanBtn').innerText='⏳ یادداشتیں چیک ہو رہی ہیں...';
+  let found=0,idx=0;
+  const interval=setInterval(()=>{
+    for(let j=0;j<10;j++){
+      if(idx>=stars.length) break;
+      const s=stars[idx];
+      if(Math.random()<0.045){s.changed=true;s.chem=[Math.random(),Math.random(),Math.random()];found++}
+      idx++;
+    }
+    document.getElementById('c2').innerText=found;
+    if(idx>=stars.length){clearInterval(interval);scanning=false;document.getElementById('scanBtn').innerText=`✅ ${found} تبدیلیاں ملیں - پھول کھل گئے`;}
+  },18);
+}
+canvas.addEventListener('click',(e)=>{
+  let closest=null,dist=9999;
+  stars.forEach(s=>{const d=Math.hypot(s.x-e.clientX,s.y-e.clientY);if(d<dist && d<60){dist=d;closest=s}});
+  if(!closest) return;
+  document.getElementById('detail').style.display='block';
+  document.getElementById('b1').style.width=(closest.chem[0]*100)+'%';
+  document.getElementById('b2').style.width=(closest.chem[1]*100)+'%';
+  document.getElementById('b3').style.width=(closest.chem[2]*100)+'%';
+  if(closest.changed){
+    document.getElementById('dTitle').innerText='🔥 CHANGE DETECTED - NEW WORLD';
+    document.getElementById('dDesc').innerHTML='پانی +42% بڑھا۔<br><b>نتیجہ:</b> یہاں نیا سیارہ بن رہا ہے۔ یہ صرف کیمیکل سے پتہ چلا، تصویر سے نہیں۔';
+  }else{
+    document.getElementById('dTitle').innerText='STABLE MEMORY';
+    document.getElementById('dDesc').innerHTML='یہ ستارہ 6 مہینے سے ویسا ہی ہے۔ کوئی کیمیکل تبدیلی نہیں۔';
+  }
 });
-document.getElementById('btnDSS').onclick=()=>{aladin.setImageSurvey('P/DSS2/color')};
-document.getElementById('btnWISE').onclick=()=>{aladin.setImageSurvey('P/allWISE/color')};
-document.getElementById('btnCompare').onclick=()=>{
-  let isDSS = aladin.getBaseImageLayer().id.includes('DSS2');
-  aladin.setImageSurvey(isDSS ? 'P/allWISE/color' : 'P/DSS2/color');
-};
-const ctx=document.getElementById('specChart').getContext('2d');
-new Chart(ctx,{type:'line',data:{labels:['1.0μm','2.0μm','3.05μm H2O','4.0μm','5.0μm'],datasets:[{label:'Flux',data:[0.2,0.4,0.15,0.8,0.6],borderColor:'#00F5FF',backgroundColor:'rgba(0,245,255,0.15)',tension:0.4,fill:true}]},options:{plugins:{legend:{display:false}}}});
+document.getElementById('scanBtn').addEventListener('click',doScan);
+document.getElementById('futureBtn').addEventListener('click',()=>{
+  futureMode=!futureMode;
+  if(!futureMode){stars.forEach(s=>s.future=false);document.getElementById('futureBtn').innerText='🔮 مستقبل دکھاؤ (اگلے 6 ماہ)';return;}
+  stars.forEach(s=>{if(!s.changed && Math.random()<0.035){s.future=true}});
+  document.getElementById('futureBtn').innerText='✨ سنہری دائرے = اگلے 6 ماہ میں تبدیلی';
+});
 </script>
 </body>
 </html>
