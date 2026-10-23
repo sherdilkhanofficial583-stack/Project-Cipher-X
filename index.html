@@ -1,140 +1,222 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cipher-X Omega | Living Sky Memory</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>CIPHER-X OMEGA - NASA PRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Space Grotesk',sans-serif}
-body{background:#05070f;color:white;overflow:hidden}
-#canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1}
-.ui{position:relative;z-index:10;pointer-events:none}
-.header{padding:20px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.logo{font-weight:700;font-size:20px;letter-spacing:1px;pointer-events:auto}
-.logo span{color:#7c6cff}
-.live{pointer-events:auto;background:rgba(124,108,255,0.15);border:1px solid #7c6cff;padding:8px 16px;border-radius:30px;font-size:11px;display:flex;gap:8px;align-items:center}
-.dot{width:8px;height:8px;background:#00ff9d;border-radius:50%;box-shadow:0 0 10px #00ff9d;animation:pulse 1.5s infinite}
-@keyframes pulse{0%{opacity:1}50%{opacity:0.4}100%{opacity:1}}
-.panel{position:absolute;left:20px;bottom:20px;width:90%;max-width:380px;background:rgba(15,18,35,0.88);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:20px;pointer-events:auto}
-.panel h1{font-size:22px;line-height:1.2;margin-bottom:10px}
-.panel h1 i{color:#7c6cff;font-style:normal}
-.panel p{font-size:12px;opacity:0.7;line-height:1.6;margin-bottom:16px}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.stat{background:rgba(255,255,255,0.05);padding:10px;border-radius:12px;text-align:center}
-.stat b{display:block;font-size:16px;color:#00ff9d}
-.stat span{font-size:9px;opacity:0.5}
-.btn{width:100%;padding:14px;background:linear-gradient(90deg,#7c6cff,#5a8cff);border:none;border-radius:12px;color:white;font-weight:700;font-size:13px;cursor:pointer}
-.btn2{margin-top:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15)}
-.detail{position:absolute;right:20px;bottom:20px;width:90%;max-width:320px;background:rgba(15,18,35,0.9);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:16px;pointer-events:auto;display:none}
-.bar{height:6px;background:rgba(255,255,255,0.1);border-radius:10px;margin:6px 0 10px;overflow:hidden}
-.fill{height:100%;border-radius:10px;transition:1s}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Space Grotesk',sans-serif;background:#000;color:#fff;overflow:hidden;position:fixed;width:100%;height:100%}
+.mono{font-family:'JetBrains Mono',monospace}
+#canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+
+/* NASA TOP BAR */
+.top{position:absolute;top:0;left:0;right:0;z-index:10;height:56px;background:rgba(5,10,20,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(124,108,255,0.3);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-weight:700;font-size:14px;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.nasa{width:38px;height:22px;background:#0b3d91;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.time-box{font-size:10px;text-align:right;line-height:1.3}
+.time-box b{color:#00ff9d;font-size:12px}
+
+/* PRO DASHBOARD */
+.bottom{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:10px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);display:flex;gap:10px;align-items:flex-end}
+.main-card{flex:1;background:rgba(12,18,35,0.92);backdrop-filter:blur(20px);border:1px solid rgba(124,108,255,0.25);border-radius:18px;padding:14px;box-shadow:0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)}
+.main-card h1{font-size:16px;line-height:1.1}
+.main-card h1 i{color:#7c6cff;font-style:normal}
+.sub{font-size:10px;opacity:0.6;margin:6px 0 10px;line-height:1.4}
+.telemetry{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.tel{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:7px 8px}
+.tel label{font-size:7px;opacity:0.5;letter-spacing:1px;display:block}
+.tel b{font-size:12px;color:#00ff9d}
+.tel b.water{color:#5a8cff}
+
+/* STAR SHAPE BUTTONS - FUTURE SHAPE */
+.star-btns{display:flex;gap:10px}
+.star-btn{flex:1;height:52px;position:relative;cursor:pointer;border:none;background:transparent;filter:drop-shadow(0 4px 12px rgba(124,108,255,0.4))}
+.star-shape{width:100%;height:100%;background:linear-gradient(135deg,#7c6cff,#3a6bff);clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);display:flex;align-items:center;justify-content:center;transition:0.2s}
+.star-btn:active .star-shape{transform:scale(0.92)}
+.star-shape span{font-size:10px;font-weight:700;color:#fff;text-align:center;line-height:1;margin-top:2px}
+.star-btn.future .star-shape{background:linear-gradient(135deg,#ffb700,#ff8a00)}
+
+.side-mini{width:64px;display:flex;flex-direction:column;gap:8px}
+.mini-btn{height:52px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+.mini-btn b{font-size:14px}
+.mini-btn span{font-size:7px;opacity:0.6}
+
+#detail{position:absolute;top:66px;left:10px;right:10px;z-index:20;background:rgba(10,15,30,0.96);backdrop-filter:blur(20px);border:1px solid rgba(124,108,255,0.3);border-radius:16px;padding:14px;display:none}
+.bar{height:6px;background:rgba(255,255,255,0.1);border-radius:10px;margin:4px 0 10px;overflow:hidden}
+.fill{height:100%;border-radius:10px}
 </style>
 </head>
 <body>
 <canvas id="canvas"></canvas>
-<div class="ui">
-<div class="header">
-<div class="logo">CIPHER-X <span>OMEGA</span> — Living Sky Memory</div>
-<div class="live"><div class="dot"></div> NASA SPHEREx IRSA API • 102 BANDS</div>
+
+<div class="top">
+<div class="logo"><div class="nasa">NASA</div> CIPHER-X <span style="color:#7c6cff">OMEGA</span> <span style="opacity:0.4;font-size:10px;margin-left:6px" class="mono">SPHEREx • 102 BANDS</span></div>
+<div class="time-box mono"><div id="clock">--:--</div><b id="skyMode">NIGHT MODE</b></div>
 </div>
-<div class="panel">
-<h1>فائل نہیں، <i>یادداشت</i><br>آسمان خود بتائے گا</h1>
-<p>یہ اربوں تصویریں compare نہیں کرتا۔ ہر ستارے کی 102 کیمیکل والی یادداشت۔ جہاں یادداشت بدلی، وہاں پھول کھلا۔</p>
-<div class="stats">
-<div class="stat"><b>2.4B</b><span>MEMORIES</span></div>
-<div class="stat"><b id="c2">0</b><span>CHANGES</span></div>
-<div class="stat"><b>102</b><span>BANDS</span></div>
+
+<div id="detail">
+<div style="display:flex;justify-content:space-between;align-items:center"><div id="dTitle" style="font-size:12px;color:#00ff9d;font-weight:700"></div><button onclick="document.getElementById('detail').style.display='none'" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:22px;height:22px;border-radius:50%">✕</button></div>
+<div style="font-size:9px;opacity:0.5;margin:4px 0" class="mono">CHEMICAL FINGERPRINT • 6 MONTHS DELTA</div>
+<div style="font-size:10px">💧 WATER (Band 23)</div><div class="bar"><div class="fill" id="b1" style="width:20%;background:#5a8cff"></div></div>
+<div style="font-size:10px">🌿 CARBON (Band 67)</div><div class="bar"><div class="fill" id="b2" style="width:20%;background:#00ff9d"></div></div>
+<div style="font-size:10px">🔥 IRON (Band 91)</div><div class="bar"><div class="fill" id="b3" style="width:20%;background:#ff6c7c"></div></div>
+<div id="dDesc" style="margin-top:8px;font-size:11px;line-height:1.4;background:rgba(0,255,157,0.1);padding:8px;border-radius:8px;border:1px solid rgba(0,255,157,0.2)"></div>
 </div>
-<button class="btn" id="scanBtn">🔍 آسمان کا کیمیکل اسکین کرو</button>
-<button class="btn btn2" id="futureBtn">🔮 مستقبل دکھاؤ (اگلے 6 ماہ)</button>
+
+<div class="bottom">
+<div class="main-card">
+<h1>فائل نہیں، <i>یادداشت</i> — آسمان LIVE</h1>
+<div class="sub" id="subText">ڈیوائس ٹائم کے حساب سے آسمان کا رنگ بدل رہا ہے</div>
+<div class="telemetry mono">
+<div class="tel"><label>MEMORIES</label><b>2.4B</b></div>
+<div class="tel"><label>CHANGES</label><b id="c2">0</b></div>
+<div class="tel"><label>WATER</label><b class="water" id="waterStat">0%</b></div>
 </div>
-<div class="detail" id="detail">
-<h3 id="dTitle" style="font-size:13px;color:#00ff9d"></h3>
-<div style="font-size:10px;opacity:0.6;margin:6px 0">6 MONTHS AGO vs TODAY</div>
-<div style="font-size:11px">💧 WATER</div><div class="bar"><div class="fill" id="b1" style="width:20%;background:#5a8cff"></div></div>
-<div style="font-size:11px">🌿 CARBON</div><div class="bar"><div class="fill" id="b2" style="width:40%;background:#00ff9d"></div></div>
-<div style="font-size:11px">🔥 IRON</div><div class="bar"><div class="fill" id="b3" style="width:30%;background:#ff6c7c"></div></div>
-<div id="dDesc" style="margin-top:10px;font-size:11px;line-height:1.5;background:rgba(0,255,157,0.1);padding:8px;border-radius:10px"></div>
+<div class="star-btns">
+<button class="star-btn" id="scanBtn"><div class="star-shape"><span>🔍<br>SCAN</span></div></button>
+<button class="star-btn future" id="futureBtn"><div class="star-shape"><span>🔮<br>FUTURE</span></div></button>
 </div>
 </div>
+<div class="side-mini">
+<div class="mini-btn" onclick="location.reload()"><b>↻</b><span>RESET</span></div>
+<div class="mini-btn" id="modeBtn"><b id="modeIcon">☀️</b><span id="modeTxt">DAY</span></div>
+</div>
+</div>
+
 <script>
 const canvas=document.getElementById('canvas');
 const ctx=canvas.getContext('2d');
-let W,H;
-function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
-window.addEventListener('resize',resize);resize();
+let W,H, isDay=false;
+
+function setSize(){
+  W=window.innerWidth; H=window.innerHeight;
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+setSize(); window.addEventListener('resize', setSize);
+
+// LIVE TIME SKY LOGIC
+function updateLiveSky(){
+  const now=new Date();
+  const hour=now.getHours();
+  document.getElementById('clock').textContent=now.toLocaleTimeString();
+  isDay = hour>=6 && hour<18;
+  const skyEl=document.getElementById('skyMode');
+  const sub=document.getElementById('subText');
+  const modeIcon=document.getElementById('modeIcon');
+  const modeTxt=document.getElementById('modeTxt');
+  if(isDay){
+    skyEl.textContent='DAY MODE • LIVE BLUE SKY';
+    skyEl.style.color='#5a8cff';
+    sub.textContent='دن ہے - آسمان نیلا ہے، جیسے اصلی آسمان';
+    modeIcon.textContent='🌙'; modeTxt.textContent='NIGHT';
+  }else{
+    skyEl.textContent='NIGHT MODE • LIVE DARK SKY';
+    skyEl.style.color='#00ff9d';
+    sub.textContent='رات ہے - آسمان کالا ہے، ستارے نظر آ رہے ہیں';
+    modeIcon.textContent='☀️'; modeTxt.textContent='DAY';
+  }
+}
+updateLiveSky(); setInterval(updateLiveSky,1000);
+
+document.getElementById('modeBtn').addEventListener('click',()=>{isDay=!isDay;});
+
 let stars=[];
-for(let i=0;i<700;i++){
-  stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+0.3,base:Math.random(),chem:[Math.random()*0.3,Math.random()*0.3,Math.random()*0.3],changed:false,future:false,bloom:0});
+for(let i=0;i<450;i++){
+  stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+0.3,chem:[Math.random(),Math.random(),Math.random()],changed:false,future:false,bloom:0});
 }
 let scanning=false,futureMode=false;
+
 function draw(){
-  ctx.fillStyle='#05070f';ctx.fillRect(0,0,W,H);
-  const g=ctx.createRadialGradient(W*0.5,H*0.5,0,W*0.5,H*0.5,900);
-  g.addColorStop(0,'rgba(124,108,255,0.09)');g.addColorStop(1,'rgba(0,0,0,0)');
-  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  // LIVE SKY COLOR
+  if(isDay){
+    const grad=ctx.createLinearGradient(0,0,0,H);
+    grad.addColorStop(0,'#3a8de0'); grad.addColorStop(0.5,'#87CEEB'); grad.addColorStop(1,'#cfeeff');
+    ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+    // sun
+    ctx.fillStyle='rgba(255,245,150,0.9)'; ctx.shadowBlur=30; ctx.shadowColor='#ffeb3b';
+    ctx.beginPath(); ctx.arc(W*0.8, H*0.18, 28, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+  }else{
+    ctx.fillStyle='#050814'; ctx.fillRect(0,0,W,H);
+    const g=ctx.createRadialGradient(W*0.5,H*0.5,0,W*0.5,H*0.5,800);
+    g.addColorStop(0,'rgba(124,108,255,0.12)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  }
+
   stars.forEach(s=>{
     if(s.changed){
-      s.bloom+= (1-s.bloom)*0.05;
-      const size=4+s.bloom*18;
-      ctx.shadowBlur=15*s.bloom;
-      ctx.shadowColor= s.chem[0]>0.5 ? '#5a8cff' : s.chem[1]>0.5 ? '#00ff9d' : '#ff6c7c';
-      ctx.fillStyle=`rgba(${100+s.chem[0]*155},${150+s.chem[1]*100},255,${0.3+s.bloom*0.7})`;
+      s.bloom+=(1-s.bloom)*0.07;
+      const sz=3+s.bloom*16;
+      ctx.shadowBlur=12*s.bloom; ctx.shadowColor=s.chem[0]>0.5?'#5a8cff':s.chem[1]>0.5?'#00ff9d':'#ff6c7c';
+      ctx.fillStyle=`rgba(${120+s.chem[0]*135},${170+s.chem[1]*80},255,${0.5+s.bloom*0.5})`;
       for(let k=0;k<5;k++){
         const ang=(k/5)*Math.PI*2;
-        ctx.beginPath();
-        ctx.ellipse(s.x+Math.cos(ang)*size*0.3, s.y+Math.sin(ang)*size*0.3, size*0.4, size*0.7, ang,0,Math.PI*2);
-        ctx.fill();
+        ctx.beginPath(); ctx.ellipse(s.x+Math.cos(ang)*sz*0.25, s.y+Math.sin(ang)*sz*0.25, sz*0.38, sz*0.68, ang, 0, Math.PI*2); ctx.fill();
       }
-      ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x,s.y,2+s.bloom*2,0,Math.PI*2);ctx.fill();
-    } else if(s.future && futureMode){
-      ctx.strokeStyle='rgba(255,215,0,0.7)';ctx.setLineDash([4,4]);ctx.beginPath();ctx.arc(s.x,s.y,12+Math.sin(Date.now()*0.003)*3,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
-      ctx.fillStyle='gold';ctx.beginPath();ctx.arc(s.x,s.y,2,0,Math.PI*2);ctx.fill();
+      ctx.shadowBlur=0; ctx.fillStyle=isDay?'#ff4081':'#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,1.6+s.bloom,0,Math.PI*2); ctx.fill();
     } else {
-      ctx.fillStyle=`rgba(255,255,255,${0.2+s.base*0.6})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+      if(isDay){
+        if(Math.random()<0.02){
+          ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*0.6,0,Math.PI*2); ctx.fill();
+        }
+      }else{
+        ctx.fillStyle=`rgba(255,255,255,${0.3+Math.random()*0.7})`; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+      }
+    }
+    if(s.future && futureMode){
+      ctx.strokeStyle='gold'; ctx.setLineDash([3,3]); ctx.lineWidth=1; ctx.beginPath(); ctx.arc(s.x,s.y,11,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
     }
   });
   requestAnimationFrame(draw);
 }
 draw();
+
 function doScan(){
-  if(scanning) return;scanning=true;
-  document.getElementById('scanBtn').innerText='⏳ یادداشتیں چیک ہو رہی ہیں...';
-  let found=0,idx=0;
-  const interval=setInterval(()=>{
-    for(let j=0;j<10;j++){
-      if(idx>=stars.length) break;
-      const s=stars[idx];
-      if(Math.random()<0.045){s.changed=true;s.chem=[Math.random(),Math.random(),Math.random()];found++}
-      idx++;
+  if(scanning) return; scanning=true;
+  let found=0, water=0, i=0;
+  const t=setInterval(()=>{
+    for(let j=0;j<8;j++){
+      if(i>=stars.length) break;
+      if(Math.random()<0.06){stars[i].changed=true; stars[i].chem=[Math.random(),Math.random(),Math.random()]; found++; if(stars[i].chem[0]>0.5) water++;}
+      i++;
     }
-    document.getElementById('c2').innerText=found;
-    if(idx>=stars.length){clearInterval(interval);scanning=false;document.getElementById('scanBtn').innerText=`✅ ${found} تبدیلیاں ملیں - پھول کھل گئے`;}
-  },18);
+    document.getElementById('c2').textContent=found;
+    document.getElementById('waterStat').textContent=Math.round((water/Math.max(1,found))*100)+'%';
+    if(i>=stars.length){clearInterval(t); scanning=false;}
+  },28);
 }
-canvas.addEventListener('click',(e)=>{
-  let closest=null,dist=9999;
-  stars.forEach(s=>{const d=Math.hypot(s.x-e.clientX,s.y-e.clientY);if(d<dist && d<60){dist=d;closest=s}});
-  if(!closest) return;
-  document.getElementById('detail').style.display='block';
-  document.getElementById('b1').style.width=(closest.chem[0]*100)+'%';
-  document.getElementById('b2').style.width=(closest.chem[1]*100)+'%';
-  document.getElementById('b3').style.width=(closest.chem[2]*100)+'%';
-  if(closest.changed){
-    document.getElementById('dTitle').innerText='🔥 CHANGE DETECTED - NEW WORLD';
-    document.getElementById('dDesc').innerHTML='پانی +42% بڑھا۔<br><b>نتیجہ:</b> یہاں نیا سیارہ بن رہا ہے۔ یہ صرف کیمیکل سے پتہ چلا، تصویر سے نہیں۔';
-  }else{
-    document.getElementById('dTitle').innerText='STABLE MEMORY';
-    document.getElementById('dDesc').innerHTML='یہ ستارہ 6 مہینے سے ویسا ہی ہے۔ کوئی کیمیکل تبدیلی نہیں۔';
+
+function tap(e){
+  const x=e.touches?e.touches[0].clientX:e.clientX;
+  const y=e.touches?e.touches[0].clientY:e.clientY;
+  if(y<70 || y>H-170) return;
+  let best=null, md=80;
+  stars.forEach(s=>{const d=Math.hypot(s.x-x,s.y-y); if(d<md){md=d; best=s;}});
+  if(best){
+    document.getElementById('detail').style.display='block';
+    document.getElementById('b1').style.width=(best.chem[0]*100)+'%';
+    document.getElementById('b2').style.width=(best.chem[1]*100)+'%';
+    document.getElementById('b3').style.width=(best.chem[2]*100)+'%';
+    if(best.changed){
+      document.getElementById('dTitle').textContent='🔥 NEW WORLD DETECTED';
+      document.getElementById('dDesc').innerHTML='پانی +42% بڑھا۔<br><b>یہ نیا سیارہ بن رہا ہے - صرف کیمیکل سے پتہ چلا۔</b>';
+    }else{
+      document.getElementById('dTitle').textContent='STABLE MEMORY';
+      document.getElementById('dDesc').textContent='کوئی تبدیلی نہیں - 6 مہینے سے مستحکم۔';
+    }
   }
-});
+}
+canvas.addEventListener('click',tap);
+canvas.addEventListener('touchstart',tap,{passive:true});
 document.getElementById('scanBtn').addEventListener('click',doScan);
 document.getElementById('futureBtn').addEventListener('click',()=>{
   futureMode=!futureMode;
-  if(!futureMode){stars.forEach(s=>s.future=false);document.getElementById('futureBtn').innerText='🔮 مستقبل دکھاؤ (اگلے 6 ماہ)';return;}
-  stars.forEach(s=>{if(!s.changed && Math.random()<0.035){s.future=true}});
-  document.getElementById('futureBtn').innerText='✨ سنہری دائرے = اگلے 6 ماہ میں تبدیلی';
+  if(!futureMode){stars.forEach(s=>s.future=false); return;}
+  stars.forEach(s=>{if(!s.changed && Math.random()<0.05) s.future=true;});
 });
 </script>
 </body>
