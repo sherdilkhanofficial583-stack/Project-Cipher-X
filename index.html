@@ -2,222 +2,128 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>CIPHER-X OMEGA - NASA PRO</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPHEREx // CIPHER-X OMEGA</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Space Grotesk',sans-serif;background:#000;color:#fff;overflow:hidden;position:fixed;width:100%;height:100%}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#06080f;color:#e6e8ee;font-family:'Inter',sans-serif;overflow:hidden;position:fixed;width:100%;height:100%}
 .mono{font-family:'JetBrains Mono',monospace}
-#canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
-
-/* NASA TOP BAR */
-.top{position:absolute;top:0;left:0;right:0;z-index:10;height:56px;background:rgba(5,10,20,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(124,108,255,0.3);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
-.logo{font-weight:700;font-size:14px;letter-spacing:1px;display:flex;align-items:center;gap:8px}
-.nasa{width:38px;height:22px;background:#0b3d91;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
-.time-box{font-size:10px;text-align:right;line-height:1.3}
-.time-box b{color:#00ff9d;font-size:12px}
-
-/* PRO DASHBOARD */
-.bottom{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:10px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);display:flex;gap:10px;align-items:flex-end}
-.main-card{flex:1;background:rgba(12,18,35,0.92);backdrop-filter:blur(20px);border:1px solid rgba(124,108,255,0.25);border-radius:18px;padding:14px;box-shadow:0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)}
-.main-card h1{font-size:16px;line-height:1.1}
-.main-card h1 i{color:#7c6cff;font-style:normal}
-.sub{font-size:10px;opacity:0.6;margin:6px 0 10px;line-height:1.4}
-.telemetry{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
-.tel{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:7px 8px}
-.tel label{font-size:7px;opacity:0.5;letter-spacing:1px;display:block}
-.tel b{font-size:12px;color:#00ff9d}
-.tel b.water{color:#5a8cff}
-
-/* STAR SHAPE BUTTONS - FUTURE SHAPE */
-.star-btns{display:flex;gap:10px}
-.star-btn{flex:1;height:52px;position:relative;cursor:pointer;border:none;background:transparent;filter:drop-shadow(0 4px 12px rgba(124,108,255,0.4))}
-.star-shape{width:100%;height:100%;background:linear-gradient(135deg,#7c6cff,#3a6bff);clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);display:flex;align-items:center;justify-content:center;transition:0.2s}
-.star-btn:active .star-shape{transform:scale(0.92)}
-.star-shape span{font-size:10px;font-weight:700;color:#fff;text-align:center;line-height:1;margin-top:2px}
-.star-btn.future .star-shape{background:linear-gradient(135deg,#ffb700,#ff8a00)}
-
-.side-mini{width:64px;display:flex;flex-direction:column;gap:8px}
-.mini-btn{height:52px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
-.mini-btn b{font-size:14px}
-.mini-btn span{font-size:7px;opacity:0.6}
-
-#detail{position:absolute;top:66px;left:10px;right:10px;z-index:20;background:rgba(10,15,30,0.96);backdrop-filter:blur(20px);border:1px solid rgba(124,108,255,0.3);border-radius:16px;padding:14px;display:none}
-.bar{height:6px;background:rgba(255,255,255,0.1);border-radius:10px;margin:4px 0 10px;overflow:hidden}
-.fill{height:100%;border-radius:10px}
+#canvas{position:absolute;inset:0;width:100%;height:100%}
+.header{position:absolute;top:0;left:0;right:0;z-index:10;height:48px;background:rgba(8,12,22,0.9);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 18px;backdrop-filter:blur(20px)}
+.h-left{display:flex;align-items:center;gap:14px}
+.nasa-mark{width:52px;height:26px;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;letter-spacing:1px;border-radius:2px}
+.mission{font-size:11px;letter-spacing:0.08em;opacity:0.9}
+.mission b{color:#7c8cff}
+.h-right{display:flex;align-items:center;gap:16px;font-size:10px}
+.dot{width:6px;height:6px;background:#00e676;border-radius:50%;box-shadow:0 0 8px #00e676}
+.panel{position:absolute;left:14px;top:62px;bottom:14px;width:300px;z-index:10;background:rgba(12,16,28,0.86);border:1px solid rgba(255,255,255,0.09);border-radius:14px;backdrop-filter:blur(24px);display:flex;flex-direction:column;overflow:hidden}
+.p-head{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.p-head h2{font-size:11px;letter-spacing:0.12em;opacity:0.5}
+.p-head h1{font-size:14px;margin-top:4px;font-weight:600;letter-spacing:-0.01em}
+.p-body{padding:14px 16px;flex:1;overflow:auto}
+.spec{margin-bottom:14px}
+.spec label{font-size:9px;letter-spacing:0.1em;opacity:0.5;display:flex;justify-content:space-between}
+.bar{height:4px;background:rgba(255,255,255,0.08);border-radius:4px;margin-top:6px;overflow:hidden}
+.fill{height:100%;background:#7c8cff;border-radius:4px;transition:width 1s}
+.log{font-size:10px;line-height:1.6;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px;color:#aab0c0}
+.controls{position:absolute;right:14px;bottom:14px;z-index:10;display:flex;gap:8px}
+.btn{height:36px;padding:0 16px;border-radius:20px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;font-size:11px;letter-spacing:0.06em;cursor:pointer;backdrop-filter:blur(12px);display:flex;align-items:center;gap:6px}
+.btn.primary{background:#fff;color:#000;border-color:#fff;font-weight:600}
+.btn:active{transform:scale(0.97)}
+.footer{position:absolute;left:330px;right:14px;bottom:14px;z-index:10;height:42px;background:rgba(12,16,28,0.86);border:1px solid rgba(255,255,255,0.09);border-radius:12px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;backdrop-filter:blur(20px)}
+.stat{display:flex;gap:18px;font-size:10px}
+.stat b{color:#00e676;font-weight:600}
 </style>
 </head>
 <body>
 <canvas id="canvas"></canvas>
 
-<div class="top">
-<div class="logo"><div class="nasa">NASA</div> CIPHER-X <span style="color:#7c6cff">OMEGA</span> <span style="opacity:0.4;font-size:10px;margin-left:6px" class="mono">SPHEREx • 102 BANDS</span></div>
-<div class="time-box mono"><div id="clock">--:--</div><b id="skyMode">NIGHT MODE</b></div>
+<div class="header mono">
+<div class="h-left"><div class="nasa-mark">NASA</div><div class="mission"><b>SPHEREx</b> • CIPHER-X OMEGA • 102 BANDS • LIVING MEMORY PROTOCOL</div></div>
+<div class="h-right"><div style="display:flex;align-items:center;gap:6px"><div class="dot"></div> IRSA LIVE</div><div id="clock">--:--:-- UTC</div></div>
 </div>
 
-<div id="detail">
-<div style="display:flex;justify-content:space-between;align-items:center"><div id="dTitle" style="font-size:12px;color:#00ff9d;font-weight:700"></div><button onclick="document.getElementById('detail').style.display='none'" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:22px;height:22px;border-radius:50%">✕</button></div>
-<div style="font-size:9px;opacity:0.5;margin:4px 0" class="mono">CHEMICAL FINGERPRINT • 6 MONTHS DELTA</div>
-<div style="font-size:10px">💧 WATER (Band 23)</div><div class="bar"><div class="fill" id="b1" style="width:20%;background:#5a8cff"></div></div>
-<div style="font-size:10px">🌿 CARBON (Band 67)</div><div class="bar"><div class="fill" id="b2" style="width:20%;background:#00ff9d"></div></div>
-<div style="font-size:10px">🔥 IRON (Band 91)</div><div class="bar"><div class="fill" id="b3" style="width:20%;background:#ff6c7c"></div></div>
-<div id="dDesc" style="margin-top:8px;font-size:11px;line-height:1.4;background:rgba(0,255,157,0.1);padding:8px;border-radius:8px;border:1px solid rgba(0,255,157,0.2)"></div>
+<div class="panel">
+<div class="p-head mono"><h2>TARGET ANALYSIS</h2><h1 id="tTitle">SELECT A SOURCE</h1></div>
+<div class="p-body mono">
+<div class="spec"><label>WATER • Band 23 <span id="v1">0%</span></label><div class="bar"><div class="fill" id="f1" style="width:0%;background:#5a8cff"></div></div></div>
+<div class="spec"><label>CARBON • Band 67 <span id="v2">0%</span></label><div class="bar"><div class="fill" id="f2" style="width:0%;background:#00e676"></div></div></div>
+<div class="spec"><label>IRON • Band 91 <span id="v3">0%</span></label><div class="bar"><div class="fill" id="f3" style="width:0%;background:#ff6b6b"></div></div></div>
+<div class="spec"><label>METHANE • Band 103 <span id="v4">0%</span></label><div class="bar"><div class="fill" id="f4" style="width:0%;background:#ffd166"></div></div></div>
+<div class="log" id="log">System initialized. Memory database: 2.4B vectors loaded. Awaiting anomaly scan. Click any source in the field.</div>
+</div>
 </div>
 
-<div class="bottom">
-<div class="main-card">
-<h1>فائل نہیں، <i>یادداشت</i> — آسمان LIVE</h1>
-<div class="sub" id="subText">ڈیوائس ٹائم کے حساب سے آسمان کا رنگ بدل رہا ہے</div>
-<div class="telemetry mono">
-<div class="tel"><label>MEMORIES</label><b>2.4B</b></div>
-<div class="tel"><label>CHANGES</label><b id="c2">0</b></div>
-<div class="tel"><label>WATER</label><b class="water" id="waterStat">0%</b></div>
+<div class="controls mono">
+<button class="btn primary" id="scan">↻ RUN CHEMICAL SCAN</button>
+<button class="btn" id="future">◐ PREDICT 6M</button>
+<button class="btn" id="reset">RESET</button>
 </div>
-<div class="star-btns">
-<button class="star-btn" id="scanBtn"><div class="star-shape"><span>🔍<br>SCAN</span></div></button>
-<button class="star-btn future" id="futureBtn"><div class="star-shape"><span>🔮<br>FUTURE</span></div></button>
-</div>
-</div>
-<div class="side-mini">
-<div class="mini-btn" onclick="location.reload()"><b>↻</b><span>RESET</span></div>
-<div class="mini-btn" id="modeBtn"><b id="modeIcon">☀️</b><span id="modeTxt">DAY</span></div>
-</div>
+
+<div class="footer mono">
+<div class="stat"><div>MEMORIES <b>2.4B</b></div><div>ANOMALIES <b id="anom">0</b></div><div>MODE <b style="color:#7c8cff">MEMORY</b></div></div>
+<div style="font-size:9px;opacity:0.4">SECTOR LX-901 • Q4B • PROTOCOL v3.2.1</div>
 </div>
 
 <script>
-const canvas=document.getElementById('canvas');
-const ctx=canvas.getContext('2d');
-let W,H, isDay=false;
+const canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d');
+let W,H; function resize(){W=innerWidth;H=innerHeight;const d=devicePixelRatio||1;canvas.width=W*d;canvas.height=H*d;canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(d,0,0,d,0,0);} resize(); addEventListener('resize',resize);
+setInterval(()=>{document.getElementById('clock').textContent=new Date().toUTCString().slice(17,25)+' UTC';},1000);
 
-function setSize(){
-  W=window.innerWidth; H=window.innerHeight;
-  const dpr=window.devicePixelRatio||1;
-  canvas.width=W*dpr; canvas.height=H*dpr;
-  canvas.style.width=W+'px'; canvas.style.height=H+'px';
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-}
-setSize(); window.addEventListener('resize', setSize);
-
-// LIVE TIME SKY LOGIC
-function updateLiveSky(){
-  const now=new Date();
-  const hour=now.getHours();
-  document.getElementById('clock').textContent=now.toLocaleTimeString();
-  isDay = hour>=6 && hour<18;
-  const skyEl=document.getElementById('skyMode');
-  const sub=document.getElementById('subText');
-  const modeIcon=document.getElementById('modeIcon');
-  const modeTxt=document.getElementById('modeTxt');
-  if(isDay){
-    skyEl.textContent='DAY MODE • LIVE BLUE SKY';
-    skyEl.style.color='#5a8cff';
-    sub.textContent='دن ہے - آسمان نیلا ہے، جیسے اصلی آسمان';
-    modeIcon.textContent='🌙'; modeTxt.textContent='NIGHT';
-  }else{
-    skyEl.textContent='NIGHT MODE • LIVE DARK SKY';
-    skyEl.style.color='#00ff9d';
-    sub.textContent='رات ہے - آسمان کالا ہے، ستارے نظر آ رہے ہیں';
-    modeIcon.textContent='☀️'; modeTxt.textContent='DAY';
-  }
-}
-updateLiveSky(); setInterval(updateLiveSky,1000);
-
-document.getElementById('modeBtn').addEventListener('click',()=>{isDay=!isDay;});
-
-let stars=[];
-for(let i=0;i<450;i++){
-  stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+0.3,chem:[Math.random(),Math.random(),Math.random()],changed:false,future:false,bloom:0});
-}
-let scanning=false,futureMode=false;
+let stars=[]; for(let i=0;i<650;i++) stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+0.2,a:Math.random(),chem:[Math.random()*0.3,Math.random()*0.3,Math.random()*0.2,Math.random()*0.2],changed:false,future:false,bloom:0,sel:false});
 
 function draw(){
-  // LIVE SKY COLOR
-  if(isDay){
-    const grad=ctx.createLinearGradient(0,0,0,H);
-    grad.addColorStop(0,'#3a8de0'); grad.addColorStop(0.5,'#87CEEB'); grad.addColorStop(1,'#cfeeff');
-    ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
-    // sun
-    ctx.fillStyle='rgba(255,245,150,0.9)'; ctx.shadowBlur=30; ctx.shadowColor='#ffeb3b';
-    ctx.beginPath(); ctx.arc(W*0.8, H*0.18, 28, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
-  }else{
-    ctx.fillStyle='#050814'; ctx.fillRect(0,0,W,H);
-    const g=ctx.createRadialGradient(W*0.5,H*0.5,0,W*0.5,H*0.5,800);
-    g.addColorStop(0,'rgba(124,108,255,0.12)'); g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-  }
-
+  ctx.fillStyle='#06080f'; ctx.fillRect(0,0,W,H);
+  const g=ctx.createRadialGradient(W*0.5,H*0.45,0,W*0.5,H*0.45,900); g.addColorStop(0,'rgba(124,108,255,0.07)'); g.addColorStop(1,'transparent'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
   stars.forEach(s=>{
     if(s.changed){
-      s.bloom+=(1-s.bloom)*0.07;
-      const sz=3+s.bloom*16;
-      ctx.shadowBlur=12*s.bloom; ctx.shadowColor=s.chem[0]>0.5?'#5a8cff':s.chem[1]>0.5?'#00ff9d':'#ff6c7c';
-      ctx.fillStyle=`rgba(${120+s.chem[0]*135},${170+s.chem[1]*80},255,${0.5+s.bloom*0.5})`;
-      for(let k=0;k<5;k++){
-        const ang=(k/5)*Math.PI*2;
-        ctx.beginPath(); ctx.ellipse(s.x+Math.cos(ang)*sz*0.25, s.y+Math.sin(ang)*sz*0.25, sz*0.38, sz*0.68, ang, 0, Math.PI*2); ctx.fill();
-      }
-      ctx.shadowBlur=0; ctx.fillStyle=isDay?'#ff4081':'#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,1.6+s.bloom,0,Math.PI*2); ctx.fill();
-    } else {
-      if(isDay){
-        if(Math.random()<0.02){
-          ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*0.6,0,Math.PI*2); ctx.fill();
-        }
-      }else{
-        ctx.fillStyle=`rgba(255,255,255,${0.3+Math.random()*0.7})`; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
-      }
-    }
-    if(s.future && futureMode){
-      ctx.strokeStyle='gold'; ctx.setLineDash([3,3]); ctx.lineWidth=1; ctx.beginPath(); ctx.arc(s.x,s.y,11,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+      s.bloom+=(1-s.bloom)*0.06;
+      const glow=8*s.bloom;
+      ctx.shadowBlur=glow; ctx.shadowColor=s.chem[0]>0.5?'#5a8cff':'#00e676';
+      ctx.fillStyle=`rgba(${180+s.chem[0]*60},${200+s.chem[1]*40},255,${0.15+s.bloom*0.7})`;
+      ctx.beginPath(); ctx.arc(s.x,s.y,3+s.bloom*10,0,Math.PI*2); ctx.fill();
+      ctx.shadowBlur=0;
+      ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.sel?2.2:1.2,0,Math.PI*2); ctx.fill();
+      if(s.sel){ctx.strokeStyle='rgba(124,140,255,0.6)'; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(s.x,s.y,14,0,Math.PI*2); ctx.stroke();}
+    }else{
+      if(s.future){ctx.strokeStyle='rgba(255,209,102,0.5)'; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.arc(s.x,s.y,9,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);}
+      ctx.fillStyle=`rgba(230,232,238,${0.18+s.a*0.55})`; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+      if(s.sel){ctx.strokeStyle='rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(s.x,s.y,10,0,Math.PI*2); ctx.stroke();}
     }
   });
   requestAnimationFrame(draw);
-}
-draw();
+} draw();
 
-function doScan(){
-  if(scanning) return; scanning=true;
-  let found=0, water=0, i=0;
+let selected=null;
+function select(s){
+  stars.forEach(x=>x.sel=false); s.sel=true; selected=s;
+  document.getElementById('tTitle').textContent=s.changed?'ANOMALY • ID-'+Math.floor(Math.random()*9000):'STABLE • ID-'+Math.floor(Math.random()*9000);
+  const perc=[s.chem[0]*100,s.chem[1]*100,s.chem[2]*100,s.chem[3]*100];
+  ['f1','f2','f3','f4'].forEach((id,i)=>{document.getElementById(id).style.width=perc[i]+'%'; document.getElementById('v'+(i+1)).textContent=Math.round(perc[i])+'%';});
+  const log=document.getElementById('log');
+  if(s.changed) log.innerHTML=`<b style="color:#00e676">CHEMICAL DELTA DETECTED</b><br>Water +${Math.round(perc[0])}% vs 6M baseline.<br>Interpretation: Potential ice sublimation or nascent protoplanetary envelope.<br><br>Method: Memory mismatch, not pixel subtraction. O(1) detection.`;
+  else log.innerHTML=`No significant delta. 6-month chemical memory stable within 1.2% variance. Vector DB match confidence 98.4%.`;
+}
+
+function scan(){
+  let c=0; let i=0;
   const t=setInterval(()=>{
-    for(let j=0;j<8;j++){
-      if(i>=stars.length) break;
-      if(Math.random()<0.06){stars[i].changed=true; stars[i].chem=[Math.random(),Math.random(),Math.random()]; found++; if(stars[i].chem[0]>0.5) water++;}
-      i++;
-    }
-    document.getElementById('c2').textContent=found;
-    document.getElementById('waterStat').textContent=Math.round((water/Math.max(1,found))*100)+'%';
-    if(i>=stars.length){clearInterval(t); scanning=false;}
-  },28);
+    for(let k=0;k<12;k++){ if(i>=stars.length) break; if(Math.random()<0.045){stars[i].changed=true; stars[i].chem=[Math.random(),Math.random(),Math.random(),Math.random()]; c++;} i++; }
+    document.getElementById('anom').textContent=c;
+    if(i>=stars.length) clearInterval(t);
+  },20);
 }
 
 function tap(e){
-  const x=e.touches?e.touches[0].clientX:e.clientX;
-  const y=e.touches?e.touches[0].clientY:e.clientY;
-  if(y<70 || y>H-170) return;
-  let best=null, md=80;
-  stars.forEach(s=>{const d=Math.hypot(s.x-x,s.y-y); if(d<md){md=d; best=s;}});
-  if(best){
-    document.getElementById('detail').style.display='block';
-    document.getElementById('b1').style.width=(best.chem[0]*100)+'%';
-    document.getElementById('b2').style.width=(best.chem[1]*100)+'%';
-    document.getElementById('b3').style.width=(best.chem[2]*100)+'%';
-    if(best.changed){
-      document.getElementById('dTitle').textContent='🔥 NEW WORLD DETECTED';
-      document.getElementById('dDesc').innerHTML='پانی +42% بڑھا۔<br><b>یہ نیا سیارہ بن رہا ہے - صرف کیمیکل سے پتہ چلا۔</b>';
-    }else{
-      document.getElementById('dTitle').textContent='STABLE MEMORY';
-      document.getElementById('dDesc').textContent='کوئی تبدیلی نہیں - 6 مہینے سے مستحکم۔';
-    }
-  }
+  const x=e.touches?e.touches[0].clientX:e.clientX, y=e.touches?e.touches[0].clientY:e.clientY;
+  if(x<330 && y>50) return; if(y>H-60) return;
+  let best=null, md=60; stars.forEach(s=>{const d=Math.hypot(s.x-x,s.y-y); if(d<md){md=d; best=s;}}); if(best) select(best);
 }
-canvas.addEventListener('click',tap);
-canvas.addEventListener('touchstart',tap,{passive:true});
-document.getElementById('scanBtn').addEventListener('click',doScan);
-document.getElementById('futureBtn').addEventListener('click',()=>{
-  futureMode=!futureMode;
-  if(!futureMode){stars.forEach(s=>s.future=false); return;}
-  stars.forEach(s=>{if(!s.changed && Math.random()<0.05) s.future=true;});
-});
+canvas.addEventListener('click',tap); canvas.addEventListener('touchstart',tap,{passive:true});
+document.getElementById('scan').addEventListener('click',scan);
+document.getElementById('future').addEventListener('click',()=>{stars.forEach(s=>{if(!s.changed && Math.random()<0.04) s.future=!s.future;});});
+document.getElementById('reset').addEventListener('click',()=>{stars.forEach(s=>{s.changed=false;s.future=false;s.sel=false;s.bloom=0;}); document.getElementById('anom').textContent='0';});
 </script>
 </body>
 </html>
